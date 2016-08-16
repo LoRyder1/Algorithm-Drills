@@ -82,16 +82,7 @@ x = ['aaab', 'baa', 'aaa', 'aaba']
 #=== Find the equilibrium index ====
 # Time complexity O(N^2)
 
-def equi_index arr
-  left, right = 0, arr.reduce(:+)
-  indices = []
-  arr.each_with_index do |x,xi|
-    right -= x
-    indices << xi if left == right
-    left += x
-  end
-  indices.empty? ? -1 : indices.first
-end
+
 
 # p equi_index [-1,3,-4,5,1,-6,2,1] # 1, 3, 7
 # p equi_index [1,2,3]
@@ -100,16 +91,12 @@ end
 
 # ==== Given a group of sentences, give count of words of largest sent. ===
 
-def largest_sent paragraph
-  sent_length = []
-  paragraph.split(/\?|\.|\!/).map{|x| x.split(' ')}.each{|x| sent_length << x.size}
-  sent_length.max
-end
 
-p largest_sent "We test coders. Give us a try?"
-p largest_sent "We test coders? Give us a try."
-p largest_sent "We test's coders. Give us a try?"
-p largest_sent "Forget  CVs..Save time . x x"
+
+# p largest_sent "We test coders. Give us a try?"
+# p largest_sent "We test coders? Give us a try."
+# p largest_sent "We test's coders. Give us a try?"
+# p largest_sent "Forget  CVs..Save time . x x"
 
 
 # ====== Caesar Cipher ==========
@@ -120,4 +107,4 @@ def caesar_cipher string
 
 end
 
-p caesar_cipher 'middle-Outz'
+# p caesar_cipher 'middle-Outz'
