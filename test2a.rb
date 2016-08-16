@@ -61,30 +61,13 @@ x = ['aaab', 'baa', 'aaa', 'aaba']
 
 #==== is string b a substring of string a? =====
 
-def two_strings a,b
-  substring = false
-  b.chars.each do |x|
-    if a.chars.include? x
-      substring = true
-      break
-    end
-  end
-  puts substring ? 'YES' : 'NO'  
-end
 
 # two_strings 'hello', 'world' # 'YES'
 # two_strings 'hi', 'world' # 'NO'
 
 #==== can any anagram of string be a palindrome? =====
 
-def game_of_thrones string
-  count, freq = 0, Hash.new(0)
-  string.chars.each{|x| freq[x]+=1}
-  freq.each do |k,v|
-    count +=1 if v.odd?
-  end
-  puts count < 2 ? 'YES' : 'NO'  
-end
+
 
 # game_of_thrones 'aaabbbb' # 'YES'
 # game_of_thrones 'cdefghmnopqrstuvw' # 'NO'
@@ -92,13 +75,7 @@ end
 #=== anagram is a word that can be formed by rearranging letters from another ===
 # How many deletions to make strings anagrams of each other?
 
-def make_anagram a,b
-  count, freq = 0, Hash.new(0)
-  a.chars.each{ |x| freq[x]+=1 }
-  b.chars.each{ |letter| freq[letter]-=1 }
-  freq.each{|k,v| count+=v.abs}
-  puts count
-end
+
 
 # make_anagram 'cde', 'abc' # 4
 
