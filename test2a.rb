@@ -32,17 +32,7 @@
 
 # ==is string funny? funny = xi.ord - (xi-1).ord ===
 
-def funny string
-  count, arr = 0, string.chars
-  arr.each_with_index do |x,xi|
-    if xi > 0
-      s1 = (x.ord - arr[xi-1].ord).abs
-      s2 = (arr[-(xi+1)].ord - arr[-xi].ord).abs
-      s1 == s2 ? count +=1 : break
-    end
-  end
-  puts count == arr.size - 1 ? 'Funny' : 'Not Funny'
-end
+
 
 # funny('acxz') # == 'Funny'
 # funny 'bcxz' # == 'Not Funny'
@@ -50,17 +40,7 @@ end
 # ===anagram is word that is formed by rearranging the letters of another===
 # figure how many changes to make anagram of second string, if can not be made anagram -> -1
 
-def anagram string
-  mid = string.size/2
-  s1 = string.slice(0...mid).chars
-  s2 = string.slice(mid..-1).chars
-  count, freq = 0, Hash.new(0)
-  s1.each{|x| freq[x]+=1}
-  s2.each do |letter|
-    freq[letter] > 0 ? freq[letter] -= 1 : count +=1
-  end
-  puts string.size.even? ? count : -1
-end
+
 
 x = ['aaabbb','ab','abc','mnop','xyyx','xaxbbbxx']
 
@@ -70,18 +50,7 @@ x = ['aaabbb','ab','abc','mnop','xyyx','xaxbbbxx']
 
 # ====palindrome is a word that reads the same forwards and backwards===
 
-def palindrome_index string
-  s1 = string.chars  
-  indices = []
-  if s1 == s1.reverse
-    puts -1
-  else
-    s1.each_with_index do |x,xi|
-      indices << xi if x != s1[-(xi+1)]
-    end
-    puts indices.first
-  end
-end
+
 
 
 x = ['aaab', 'baa', 'aaa', 'aaba']
