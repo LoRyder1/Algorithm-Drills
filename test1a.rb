@@ -1,9 +1,15 @@
 # ====Cancel class if fewer than x students show up ====
 
+def angry_prof min, arr
+  ontime = 0
+  arr.each{|x| ontime += 1 if x <= 0}
+  puts ontime < min ? 'YES' : 'NO'
+end
 
 
-# angry_prof 3, [-1, -3, 4, 2] # Yes cancel class
-# angry_prof 2, [0, -1, 2, 1] # No don't cancel class
+
+angry_prof 3, [-1, -3, 4, 2] # Yes cancel class
+angry_prof 2, [0, -1, 2, 1] # No don't cancel class
 
 # ==== Find the Decent Num =====
 # Its digits can only be 3's and/or 5's.
