@@ -2,11 +2,9 @@
 
 def angry_prof min, arr
   ontime = 0
-  arr.each{|x| ontime += 1 if x <= 0}
+  arr.each{ |x| ontime += 1 if x <= 0}
   puts ontime < min ? 'YES' : 'NO'
 end
-
-
 
 angry_prof 3, [-1, -3, 4, 2] # Yes cancel class
 angry_prof 2, [0, -1, 2, 1] # No don't cancel class
@@ -17,7 +15,23 @@ angry_prof 2, [0, -1, 2, 1] # No don't cancel class
 # The number of 5's it contains is divisible by 3.
 # If there are more than one such number, we pick the largest one.
 
+def decent_num num
+  posib = []
 
+  posib << "5"*num if (num%3).zero?
+  posib << "3"*num if (num%5).zero?
+
+  for threes in (1..num)
+    fives = num - threes
+    if (threes%5).zero? and (fives%3).zero?
+      posib << "5"*fives + "3"*threes
+      break
+    end
+  end
+
+  puts posib.empty? ? -1 : posib.max
+  
+end
 
 # decent_num 1   #   -1
 # decent_num 3   #  555
