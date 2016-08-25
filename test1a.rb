@@ -119,18 +119,27 @@ def cut_the_sticks arr
   p sticks
 end
 
-cut_the_sticks [5,4,4,2,2,8] # 6,4,2,1
-cut_the_sticks [1,2,3,4,3,3,2,1] # 8,6,4,1
+# cut_the_sticks [5,4,4,2,2,8] # 6,4,2,1
+# cut_the_sticks [1,2,3,4,3,3,2,1] # 8,6,4,1
 
 # ==== CHocolate Feast ====
 # Given $n with choc cost = c, and wrapper trade-in value = m
 # How many chocolate can be gotten?
 
+def choc_store n,c,m
+  total = wr = n/c
+  while wr >= m
+    bonus = wr/m
+    wr -= bonus*m
+    wr += bonus
+    total += bonus
+  end
+  puts total
+end
 
-
-# choc_store 10, 2, 5 # 6
-# choc_store 12, 4, 4 # 3
-# choc_store 6, 2, 2 # 5
+choc_store 10, 2, 5 # 6
+choc_store 12, 4, 4 # 3
+choc_store 6, 2, 2 # 5
 
 #===== Lisas WorkBook ====
 # Given an array of problems in each chapter, and number of problems that can fit on each page
