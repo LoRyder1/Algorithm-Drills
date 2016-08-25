@@ -80,9 +80,9 @@ def squares a,b
   end
 end
 
-squares 3,9
-squares 4, 17 # 4, 9, 16
-squares 3, 100 # 4, 9, 16, 25, 36, 49, 64, 81, 100
+# squares 3,9
+# squares 4, 17 # 4, 9, 16
+# squares 3, 100 # 4, 9, 16, 25, 36, 49, 64, 81, 100
 # squares -10, 100
 # squares -10, -8
 # squares 0,1
@@ -91,7 +91,10 @@ squares 3, 100 # 4, 9, 16, 25, 36, 49, 64, 81, 100
 # ===== Service Lane =====
 # Given the entry and exit points in an array of widths, output max width one can travel through
 
-
+def service_lane start,exit,lane
+  puts lane[start..exit].min
+  
+end
 
 lane = [2,3,1,2,3,2,3,3]
 
@@ -105,10 +108,19 @@ lane = [2,3,1,2,3,2,3,3]
 # Given an array of sticks, cut the sticks by the length of the smallest until none are left
 # print number of sticks before each cut.
 
+def cut_the_sticks arr
+  sticks = []
+  while arr.size != 0
+    sticks << arr.size
+    min_length = arr.min
+    arr.map!{|x| x-min_length}
+    arr.reject!{|x| x < 1}
+  end
+  p sticks
+end
 
-
-# cut_the_sticks [5,4,4,2,2,8] # 6,4,2,1
-# cut_the_sticks [1,2,3,4,3,3,2,1] # 8,6,4,1
+cut_the_sticks [5,4,4,2,2,8] # 6,4,2,1
+cut_the_sticks [1,2,3,4,3,3,2,1] # 8,6,4,1
 
 # ==== CHocolate Feast ====
 # Given $n with choc cost = c, and wrapper trade-in value = m
