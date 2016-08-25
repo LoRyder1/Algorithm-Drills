@@ -6,8 +6,8 @@ def angry_prof min, arr
   puts ontime < min ? 'YES' : 'NO'
 end
 
-angry_prof 3, [-1, -3, 4, 2] # Yes cancel class
-angry_prof 2, [0, -1, 2, 1] # No don't cancel class
+# angry_prof 3, [-1, -3, 4, 2] # Yes cancel class
+# angry_prof 2, [0, -1, 2, 1] # No don't cancel class
 
 # ==== Find the Decent Num =====
 # Its digits can only be 3's and/or 5's.
@@ -33,10 +33,10 @@ def decent_num num
   
 end
 
-decent_num 1   #   -1
-decent_num 3   #  555
-decent_num 5   #  33333
-decent_num 11   #  55555533333
+# decent_num 1   #   -1
+# decent_num 3   #  555
+# decent_num 5   #  33333
+# decent_num 11   #  55555533333
 
 # ======== Utopian Tree =========
 # two cycles of growth in year = spring doubles in height, summer increase = +1, starting height = 1
@@ -50,18 +50,22 @@ def utopian_tree cycles
   
 end
 
-utopian_tree 0 # 1
-utopian_tree 1 # 2
-utopian_tree 4 # 7
+# utopian_tree 0 # 1
+# utopian_tree 1 # 2
+# utopian_tree 4 # 7
 
 # === Find Digits ===
 # Given an integer, how many digits of integer can evenly divide integer
 
+def find_digits num
+  count, digits = 0, num.to_s.split('').map(&:to_i).reject{|x| x < 1}
+  digits.each{ |d| count+=1 if (num%d).zero? }
+  p count  
+end
 
-
-# find_digits 12
-# find_digits 1012
-# find_digits 1041
+find_digits 12
+find_digits 1012
+find_digits 1041
 
 # ===Count all the squares in a given range ===
 
