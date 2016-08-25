@@ -33,19 +33,26 @@ def decent_num num
   
 end
 
-# decent_num 1   #   -1
-# decent_num 3   #  555
-# decent_num 5   #  33333
-# decent_num 11   #  55555533333
+decent_num 1   #   -1
+decent_num 3   #  555
+decent_num 5   #  33333
+decent_num 11   #  55555533333
 
 # ======== Utopian Tree =========
 # two cycles of growth in year = spring doubles in height, summer increase = +1, starting height = 1
 
+def utopian_tree cycles
+  height = 1
+  for season in (1..cycles)
+    season.odd? ? height*=2 : height +=1
+  end
+  p height
+  
+end
 
-
-# utopian_tree 0 # 1
-# utopian_tree 1 # 2
-# utopian_tree 4 # 7
+utopian_tree 0 # 1
+utopian_tree 1 # 2
+utopian_tree 4 # 7
 
 # === Find Digits ===
 # Given an integer, how many digits of integer can evenly divide integer
