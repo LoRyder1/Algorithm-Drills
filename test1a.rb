@@ -137,16 +137,29 @@ def choc_store n,c,m
   puts total
 end
 
-choc_store 10, 2, 5 # 6
-choc_store 12, 4, 4 # 3
-choc_store 6, 2, 2 # 5
+# choc_store 10, 2, 5 # 6
+# choc_store 12, 4, 4 # 3
+# choc_store 6, 2, 2 # 5
 
 #===== Lisas WorkBook ====
 # Given an array of problems in each chapter, and number of problems that can fit on each page
 # Figure out when problem number and page number coincide, that is a special problem. Count how many.
 
+def lisas_wbk prbs, prbs_per_chap
+  pages, count = [], 0
+  prbs_per_chap.each do |chap|
+    num, rem = chap/prbs, chap%prbs
+    num.times{pages<<prbs}
+    pages << rem unless rem.zero?
+  end
+  prbs_per_chap.map!{|x| (1..x).to_a}.flatten!
+  pages.map!{|x| prbs_per_chap.shift(x)}
+  pages.each_with_index{|x,xi| count+=1 if x.include? (xi+1)}
+  p count
+end
 
-# lisas_wbk 3, [4,2,6,1,10] # 4
+
+lisas_wbk 3, [4,2,6,1,10] # 4
 
 require 'pp'
 class PP
