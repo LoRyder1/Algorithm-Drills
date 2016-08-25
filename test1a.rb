@@ -63,17 +63,26 @@ def find_digits num
   p count  
 end
 
-find_digits 12
-find_digits 1012
-find_digits 1041
+# find_digits 12
+# find_digits 1012
+# find_digits 1041
 
 # ===Count all the squares in a given range ===
 
+def squares a,b
+  a = 0 if a < 0
+  if b < 0
+    puts 0
+  else
+    s1 = Math.sqrt(a).ceil
+    s2 = Math.sqrt(b).floor
+    puts (s2-s1)+1
+  end
+end
 
-
-# squares 3,9
-# squares 4, 17 # 4, 9, 16
-# squares 3, 100 # 4, 9, 16, 25, 36, 49, 64, 81, 100
+squares 3,9
+squares 4, 17 # 4, 9, 16
+squares 3, 100 # 4, 9, 16, 25, 36, 49, 64, 81, 100
 # squares -10, 100
 # squares -10, -8
 # squares 0,1
