@@ -159,7 +159,7 @@ def lisas_wbk prbs, prbs_per_chap
 end
 
 
-lisas_wbk 3, [4,2,6,1,10] # 4
+# lisas_wbk 3, [4,2,6,1,10] # 4
 
 require 'pp'
 class PP
@@ -175,11 +175,29 @@ end
 #===== Cavity Map =======
 # Given a square map, find the cells where a cell is not on the border and each cell adjacent is smaller
 
+def not_borders? xi,yi,size
+  xi != 0 and yi != 0 and xi != size and yi != size
+end
 
+def adj_cells_smaller? grid,xi,yi,y
+  grid[xi][yi+1] < y and grid[xi][yi-1] < y
+end
+
+def cavity_map grid
+  copy_g = grid
+  size = grid.size-1
+
+  grid.each_with_index do |x,xi|
+    x.each_with_index do |y,yi|
+      copy_g[xi][yi] = 'X' if not_borders? xi,yi,size and adj_cells_smaller? grid,xi,yi,y
+    end
+  end
+  pp copy_g
+end
 
 grid = [[1,1,1,2],
         [1,9,1,2],
         [1,8,9,2],
         [1,2,3,4]]
 
-# cavity_map grid
+cavity_map grid
