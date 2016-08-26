@@ -31,7 +31,27 @@ end
 #=== count number of letter changes to get a palindrome by stepping back in alpha ===
 # palindrome is a word that reads the same forwards and backwards 
 
+def love_letter string
+  count, arr = 0, string.chars
+  alpha = ('a'..'z').to_a
+  arr.each_with_index do |x,xi|
+    while arr[xi] != arr[-(xi+1)]
+      opp = arr[-(xi+1)]
+      cur_let = [arr[xi], opp].max
+      a_index = alpha.index(cur_let) - 1
+      new_char = alpha[a_index]
 
+      if opp > arr[xi]
+        arr[-(xi+1)] = new_char
+        count+=1
+      else
+        arr[xi] = new_char
+        count+=1
+      end
+    end
+  end
+  count
+end
 
 p love_letter 'abc'   #  2
 p love_letter 'abcba' #  0
