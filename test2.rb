@@ -20,7 +20,6 @@ def alternating_char string
     end
   end
   count
-  
 end
 
 # p alternating_char 'AAAA'   #  3

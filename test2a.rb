@@ -4,10 +4,23 @@ def pangram sent
   sent.chars.reject{|x| x == ' '}.map(&:downcase).uniq.sort == ('a'..'z').to_a
 end
 
-p pangram "We promptly judged antique ivory buckles for the next prize" # true
+# p pangram "We promptly judged antique ivory buckles for the next prize" # true
 
 # ==== minimum number of deletions for alternating character string ====
 
+def alternating_char string
+  count, arr = 0, string.chars
+  arr.each_with_index do |x,xi|
+    if xi > 0
+      if arr[xi-1] == 'A'
+        count +=1 unless x == 'B'
+      else
+        count +=1 unless x == 'A'
+      end
+    end
+  end
+  count
+end
 
 # p alternating_char 'AAAA'   #  3
 # p alternating_char 'BBBBB'  #  4
@@ -20,10 +33,10 @@ p pangram "We promptly judged antique ivory buckles for the next prize" # true
 
 
 
-# p love_letter 'abc'   #  2
-# p love_letter 'abcba' #  0
-# p love_letter 'abcd'  #  4
-# p love_letter 'cba'   #  2
+p love_letter 'abc'   #  2
+p love_letter 'abcba' #  0
+p love_letter 'abcd'  #  4
+p love_letter 'cba'   #  2
 
 #=== a gem element is an occurence in each string ===
 
