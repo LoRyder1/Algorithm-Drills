@@ -1,7 +1,10 @@
 #==== Pangrams are sentences constructed from every letter from alpha====
 
+def pangram sent
+  sent.chars.reject{|x| x == ' '}.map(&:downcase).uniq.sort == ('a'..'z').to_a
+end
 
-# p pangram "We promptly judged antique ivory buckles for the next prize" # true
+p pangram "We promptly judged antique ivory buckles for the next prize" # true
 
 # ==== minimum number of deletions for alternating character string ====
 
