@@ -1,4 +1,4 @@
-#==== Pangrams are sentences constructed from every letter from alpha====
+ #==== Pangrams are sentences constructed from every letter from alpha====
 
 def pangram sent
   sent.chars.reject{|x| x == ' '}.map(&:downcase).uniq.sort == ('a'..'z').to_a
@@ -53,18 +53,25 @@ def love_letter string
   count
 end
 
-p love_letter 'abc'   #  2
-p love_letter 'abcba' #  0
-p love_letter 'abcd'  #  4
-p love_letter 'cba'   #  2
+# p love_letter 'abc'   #  2
+# p love_letter 'abcba' #  0
+# p love_letter 'abcd'  #  4
+# p love_letter 'cba'   #  2
 
 #=== a gem element is an occurence in each string ===
 
+def gem_element arr
+  count, stones = 0, arr.size
+  freq = Hash.new 0
+  arr.map!(&:chars).map!(&:uniq).flatten!
+  arr.each{|x| freq[x]+=1}
+  freq.each{|k,v| count+=1 if v == stones}
+  count  
+end
 
+a = ['abcdde','baccd','eeabg']
 
-# a = ['abcdde','baccd','eeabg']
-
-# p gem_element a   # 2
+p gem_element a   # 2
 
 # ==is string funny? funny = xi.ord - (xi-1).ord ===
 
