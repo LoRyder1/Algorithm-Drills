@@ -75,7 +75,17 @@ p gem_element a   # 2
 
 # ==is string funny? funny = xi.ord - (xi-1).ord ===
 
-
+def funny string
+  count, arr = 0, string.chars
+  arr.each_with_index do |x,xi|
+    if xi > 0
+      s1 = (x.ord = arr[xi-1].ord).abs
+      s2 = (arr[-(xi+1)].ord - arr[-xi].ord).abs
+      s1 == s2 ? count +=1 : break
+    end
+  end
+  puts count == arr.size - 1 ? 'Funny' : 'Not Funny'
+end
 
 # funny('acxz') # == 'Funny'
 # funny 'bcxz' # == 'Not Funny'
