@@ -134,7 +134,16 @@ end
 
 #==== is string b a substring of string a? =====
 
-
+def two_strings a,b
+  substring = false
+  b.chars.each do |x|
+    if a.chars.include? x
+      substring = true
+      break
+    end
+  end
+  puts substring ? 'YES' : 'NO'
+end
 
 # two_strings 'hello', 'world' # 'YES'
 # two_strings 'hi', 'world' # 'NO'
