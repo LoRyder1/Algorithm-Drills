@@ -71,7 +71,7 @@ end
 
 a = ['abcdde','baccd','eeabg']
 
-p gem_element a   # 2
+# p gem_element a   # 2
 
 # ==is string funny? funny = xi.ord - (xi-1).ord ===
 
@@ -102,7 +102,7 @@ def anagram string
   s2.each do |letter|
     freq[letter] > 0 ? freq[letter] -= 1 : count +=1
   end
-  puts string.size.even? count : -1
+  puts string.size.even? ? count : -1
 end
 
 x = ['aaabbb','ab','abc','mnop','xyyx','xaxbbbxx']
@@ -113,16 +113,27 @@ x = ['aaabbb','ab','abc','mnop','xyyx','xaxbbbxx']
 
 # ====palindrome is a word that reads the same forwards and backwards===
 
-
-
+def palindrome_index string
+  s1 = string.chars
+  indices = []
+  if s1 == s1.reverse
+    puts -1
+  else
+    s1.each_with_index do |x,xi|
+      indices << xi if x != s1[-(xi+1)]
+    end
+    puts indices.first
+  end
+end
 
 x = ['aaab', 'baa', 'aaa', 'aaba']
 
-# x.each do |y|
-#   palindrome_index y     # 3,0,-1,1 
-# end
+x.each do |y|
+  palindrome_index y     # 3,0,-1,1 
+end
 
 #==== is string b a substring of string a? =====
+
 
 
 # two_strings 'hello', 'world' # 'YES'
