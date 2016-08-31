@@ -93,7 +93,17 @@ end
 # ===anagram is word that is formed by rearranging the letters of another===
 # figure how many changes to make anagram of second string, if can not be made anagram -> -1
 
-
+def anagram string
+  mid = string.size/2
+  s1 = string.slice(0..mid).chars
+  s2 = string.slice(mid..-1).chars
+  count, freq = 0, Hash.new(0)
+  s1.each{|x| freq[x]+=1}
+  s2.each do |letter|
+    freq[letter] > 0 ? freq[letter] -= 1 : count +=1
+  end
+  puts string.size.even? count : -1
+end
 
 x = ['aaabbb','ab','abc','mnop','xyyx','xaxbbbxx']
 
