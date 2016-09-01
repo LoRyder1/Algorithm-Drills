@@ -197,13 +197,16 @@ end
 
 # ==== Given a group of sentences, give count of words of largest sent. ===
 
-
+def largest_sent paragraph
+  sent_length = []
+  paragraph.split(/\?|\.|\!/).map{|x| x.split(' ')}.each{|x| sent_length << x.size}
+  sent_length.max
+end
 
 # p largest_sent "We test coders. Give us a try?"
 # p largest_sent "We test coders? Give us a try."
 # p largest_sent "We test's coders. Give us a try?"
 # p largest_sent "Forget  CVs..Save time . x x"
-
 
 # ====== Caesar Cipher ==========
  # ==== encrypt string by rotating every letter in string by a fixed
