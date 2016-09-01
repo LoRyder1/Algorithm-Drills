@@ -128,9 +128,9 @@ end
 
 x = ['aaab', 'baa', 'aaa', 'aaba']
 
-x.each do |y|
-  palindrome_index y     # 3,0,-1,1 
-end
+# x.each do |y|
+#   palindrome_index y     # 3,0,-1,1 
+# end
 
 #==== is string b a substring of string a? =====
 
@@ -179,7 +179,16 @@ end
 #=== Find the equilibrium index ====
 # Time complexity O(N^2)
 
-
+def equi_index arr
+  left, right = 0, arr.reduce(:+)
+  indices = []
+  arr.each_with_index do |x,xi|
+    right -= x
+    indices << xi if left == right
+    left += x
+  end
+  indices.empty? ? -1 : indices.first
+end
 
 # p equi_index [-1,3,-4,5,1,-6,2,1] # 1, 3, 7
 # p equi_index [1,2,3]
