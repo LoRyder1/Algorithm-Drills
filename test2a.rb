@@ -215,20 +215,31 @@ end
 def caesar_cipher string, k
   alpha = ('a'..'z').to_a
   new_string = ""
-  string.chars.each_with_index do |x,xi|
-    if x == '-'
-      new_string << x
-    else
+  string.chars.each do |x|
+    if alpha.include? x.downcase
+      upcase = false
+      upcase = true if x == x.upcase
       x = x.downcase
-      new_let = alpha.index(x) - k
-      new_string << alpha[new_let]
+      new_ind = alpha.index(x) + k
+      # puts alpha.index(x)
+      # puts new_ind
+      sub = new_ind%26
+      new_ind -= sub
+      puts new_ind
+      encryp = alpha[new_ind]
+      if upcase == true
+        new_string << encryp.upcase
+      else
+        new_string << encryp
+      end
+    else 
+      new_string << x
     end
   end
   new_string
 end
 
-p caesar_cipher 'middle-Outz', 3
-
-
-
+# p caesar_cipher 'middle-Outz', 2
+# p caesar_cipher 'Hello_World!', 2
+p caesar_cipher '159357lcfd', 98  #  159357fwzx
 
