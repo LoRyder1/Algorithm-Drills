@@ -216,14 +216,19 @@ def caesar_cipher string, k
   alpha = ('a'..'z').to_a
   new_string = ""
   string.chars.each_with_index do |x,xi|
-    new_let = alpha.index(x) - k
-    new_string << alpha[new_let]
+    if x == '-'
+      new_string << x
+    else
+      x = x.downcase
+      new_let = alpha.index(x) - k
+      new_string << alpha[new_let]
+    end
   end
   new_string
 end
 
-# p caesar_cipher 'middle-Outz', 3
-p caesar_cipher 'middle', 3
+p caesar_cipher 'middle-Outz', 3
+
 
 
 
