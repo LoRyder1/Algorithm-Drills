@@ -232,7 +232,6 @@ def caesar_cipher string, k
   new_string
 end
 
-
 p caesar_cipher 'middle-Outz', 2
 p caesar_cipher 'Hello_World!', 2
 p caesar_cipher '159357lcfd', 98  #  159357fwzx
