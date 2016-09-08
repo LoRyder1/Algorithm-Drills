@@ -29,7 +29,16 @@ end
 # Formally, find an ii, such that, AA1+A+A2...A...Ai-1 =A=Ai+1+A+Ai+2...A...AN.
 # =================================================================================
 
-
+def sherlock_array arr
+  left, right = 0, arr.reduce(:+)
+  equi_index = false
+  arr.each_with_index do |x,xi|
+    right -= x
+    equi_index = true and break if left == right
+    left += x
+  end
+  puts equi_index ? 'YES' : 'NO'
+end
 
 sherlock_array [1,2,3] # NO
 sherlock_array [1,2,3,3] # YES
