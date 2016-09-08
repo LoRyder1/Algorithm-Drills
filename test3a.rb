@@ -57,8 +57,8 @@ def ice_cream_parlor num, arr
   p indices
 end
 
-ice_cream_parlor 4, [1,4,5,3,2]
-ice_cream_parlor 4, [2,2,4,3]
+# ice_cream_parlor 4, [1,4,5,3,2]
+# ice_cream_parlor 4, [2,2,4,3]
 
 # Time complexity O(N) using Kadane's algorithm 
 
@@ -68,13 +68,21 @@ ice_cream_parlor 4, [2,2,4,3]
 # Kadane's Algo - look at each index and figure out max sum subarray ending at this index. 
 # =================================================================================
 
+def the_max_subarray arr
+  max_so_far = max_cur = arr.shift
+  arr.each do |x|
+    max_cur = [x, max_cur + x].max
+    max_so_far = [max_cur, max_so_far].max
+  end
+  puts max_so_far
+end
 
-# the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
-# the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
-# the_max_subarray [1] # 1
-# the_max_subarray [1,2,3,4] # 10
-# the_max_subarray [2,-1,2,3,4,-5] # 10
-# the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
+the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
+the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
+the_max_subarray [1] # 1
+the_max_subarray [1,2,3,4] # 10
+the_max_subarray [2,-1,2,3,4,-5] # 10
+the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
 
 # Maximum Sum Subarray 
 # - Brute Force - Time Complexity O(N^2)
