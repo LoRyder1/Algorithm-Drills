@@ -40,17 +40,25 @@ def sherlock_array arr
   puts equi_index ? 'YES' : 'NO'
 end
 
-sherlock_array [1,2,3] # NO
-sherlock_array [1,2,3,3] # YES
+# sherlock_array [1,2,3] # NO
+# sherlock_array [1,2,3,3] # YES
 
 # Sunny and Johnny together have MM dollars they want to spend on ice cream. The parlor offers NN flavors, and they want to choose two flavors so that they end up spending the whole amount.
 
 # You are given the cost of these flavors. The cost of the iithth flavor is denoted by ccii. You have to display the indices of the two flavors whose sum is MM.
 # =================================================================================
 
+def ice_cream_parlor num, arr
+  for i in (0...arr.size)
+    for j in (i+1...arr.size)
+      indices = [i,j] and break if arr[i] + arr[j] == num
+    end
+  end
+  p indices
+end
 
-# ice_cream_parlor 4, [1,4,5,3,2]
-# ice_cream_parlor 4, [2,2,4,3]
+ice_cream_parlor 4, [1,4,5,3,2]
+ice_cream_parlor 4, [2,2,4,3]
 
 # Time complexity O(N) using Kadane's algorithm 
 
@@ -59,7 +67,6 @@ sherlock_array [1,2,3,3] # YES
 # Kadane's algorithm consists of a scan through the array values, computing at each position the maximum (positive sum) subarray ending at that position. This subarray is either empty (in which case its sum is zero) or consists of one more element than the maximum subarray ending at the previous position. The algorithm only needs to keep track of the ending position because the implied starting position is just after the last position the sum went negative, and you can always get a higher sum by dropping any negative-sum prefix. 
 # Kadane's Algo - look at each index and figure out max sum subarray ending at this index. 
 # =================================================================================
-
 
 
 # the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
