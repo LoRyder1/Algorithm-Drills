@@ -23,17 +23,27 @@ class Array
   end
 end
 
-p [1,2,3].pad(5)
-p [1,2,3].pad(5, 'apple')
+# p [1,2,3].pad(5)
+# p [1,2,3].pad(5, 'apple')
 
 # =============== Fibonacci Sequence =========================
 
-
+def is_fibonacci? num
+  fib_seq = [0,1]
+  while num > fib_seq.last
+    x,y = fib_seq.pop(2)
+    fib_seq.push(x,y,x+y)
+  end
+  fib_seq.include? num
+end
 
 # p is_fibonacci? 33
 # p is_fibonacci? 34
 
-
+def fibonacci_recursive n
+  return n if n < 2
+  fibonacci_recursive(n-1) + fibonacci_recursive(n-2)
+end
 
 # p fibonacci_recursive 15 # 610
 
@@ -74,7 +84,6 @@ NUM_WORDS = {
   2 => "two",
   1 => "one"
 }
-
 
 
 # p in_words 4         # => "four"
