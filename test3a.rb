@@ -77,12 +77,12 @@ def the_max_subarray arr
   puts max_so_far
 end
 
-the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
-the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
-the_max_subarray [1] # 1
-the_max_subarray [1,2,3,4] # 10
-the_max_subarray [2,-1,2,3,4,-5] # 10
-the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
+# the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
+# the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
+# the_max_subarray [1] # 1
+# the_max_subarray [1,2,3,4] # 10
+# the_max_subarray [2,-1,2,3,4,-5] # 10
+# the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
 
 # Maximum Sum Subarray 
 # - Brute Force - Time Complexity O(N^2)
@@ -103,6 +103,15 @@ the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187
 # Optimal = starting from last element in row find first negative number and record its position = now you know that all to the left is negative. - Time complexity is O(N+M) - n = rows, m = columns
 # =================================================================================
 
+def count_neg_num grid
+  count, size = 0, grid[0].size
+  grid.each_with_index do |x,xi|
+    x.reverse.each_with_index do |y,yi|
+      count += size - yi and break if y < 0
+    end
+  end
+  puts count
+end
 
 grid = [[-3,-2,-1,1],
         [-2,2,3,4],
