@@ -103,7 +103,14 @@ end
 # 5! = 5 * 4 * 3 * 2 * 1
 # 6! = 6 * 5 * 4 * 3 * 2 * 1
 
-
+def factorial n
+  arr = []
+  while n >= 1
+    arr.push n
+    n -= 1
+  end
+  arr.reduce(:*)
+end
 
 
 
