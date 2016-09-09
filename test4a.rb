@@ -165,10 +165,17 @@ def canonical word
   word.downcase.split('').sort.join
 end
 
-p is_anagram?('cinema', 'iceman')
+# p is_anagram?('cinema', 'iceman')
 
 dictionary = ['acres', 'cares', 'Cesar', 'races', 'smelt', 'melts', 'etlsm', 'shazam']
 
+def anagrams_for word, dictionary
+  anagrams = []
+  dictionary.each do |x|
+    anagrams << x if is_anagram? word, x
+  end
+  anagrams
+end
 
 # p anagrams_for 'smelt', dictionary
 # p anagrams_for 'acres', dictionary
