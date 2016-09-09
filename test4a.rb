@@ -112,21 +112,32 @@ def factorial n
   arr.reduce(:*)
 end
 
-p factorial 4  # 24
+# p factorial 4  # 24
 
+def factorial_recursive n
+  return 1 if n.zero?
+  n * factorial_recursive(n-1)
+end
 
-
-# p factorial_recursive 4
+p factorial_recursive 4
 
 
 # ============ PRIME NUMBERS ==================
 
 #  prime number can only be divided by itself and 1
 
-
+def is_prime? n
+  x = n - 1
+  while x > 1
+    return false if (n % x).zero?
+    x -= 1
+  end
+  true
+end
 
 # p is_prime? 3 # true
 # p is_prime? 5 # true
+# p is_prime? 6 # false
 # p is_prime? 9 # false
 # p is_prime? 1481 # true
 # p is_prime? 7253 # true
