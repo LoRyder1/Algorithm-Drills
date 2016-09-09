@@ -119,7 +119,7 @@ def factorial_recursive n
   n * factorial_recursive(n-1)
 end
 
-p factorial_recursive 4
+# p factorial_recursive 4
 
 
 # ============ PRIME NUMBERS ==================
@@ -143,10 +143,17 @@ end
 # p is_prime? 7253 # true
 
 
+def factors n
+  1.upto(Math.sqrt(n)).select{ |x| (n % x).zero? }.inject([]) do |arr,x|
+    arr << x
+    arr << n/x unless x == n/x
+    arr.sort
+  end
+end
 
-# p factors 81
-# p factors 50
-# p factors 9
+p factors 81
+p factors 50
+p factors 9
 
 # ============ ANAGRAM ==================
 
