@@ -151,18 +151,23 @@ def factors n
   end
 end
 
-p factors 81
-p factors 50
-p factors 9
+# p factors 81
+# p factors 50
+# p factors 9
 
 # ============ ANAGRAM ==================
 
+def is_anagram? a,b
+  canonical(a) == canonical(b)
+end
 
+def canonical word
+  word.downcase.split('').sort.join
+end
 
-# p is_anagram?('cinema', 'iceman')
+p is_anagram?('cinema', 'iceman')
 
 dictionary = ['acres', 'cares', 'Cesar', 'races', 'smelt', 'melts', 'etlsm', 'shazam']
-
 
 
 # p anagrams_for 'smelt', dictionary
