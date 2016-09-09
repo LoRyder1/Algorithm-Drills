@@ -85,6 +85,14 @@ NUM_WORDS = {
   1 => "one"
 }
 
+def in_words num
+  num_string = ''
+  NUM_WORDS.each do |k,v|
+    num_string += v*(num/k)
+    num %= k
+  end
+  num_string
+end
 
 # p in_words 4         # => "four"
 # p in_words 5         # => "five"
@@ -96,7 +104,10 @@ NUM_WORDS = {
 # 6! = 6 * 5 * 4 * 3 * 2 * 1
 
 
-# p factorial 4  # 24
+
+
+
+p factorial 4  # 24
 
 
 
