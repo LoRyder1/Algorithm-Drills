@@ -112,8 +112,6 @@ def factorial n
   arr.reduce(:*)
 end
 
-
-
 p factorial 4  # 24
 
 
