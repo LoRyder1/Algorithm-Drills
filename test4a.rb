@@ -192,10 +192,17 @@ end
 
 # ============ PIG LATIN =====================
 
+def pig_latin word
+  vowels = %w(a e i o u)
+  if vowels.include? word[0]
+    word + 'yay'
+  
+  end
+end
 
-# p pig_latin 'acre'  # acreyay
-# p pig_latin 'pig' # 'igpay'
-# p pig_latin 'trash' # 'ashtray'
+p pig_latin 'acre'  # acreyay
+p pig_latin 'pig' # 'igpay'
+p pig_latin 'trash' # 'ashtray'
 
 
 # p convert_sentence("acre pig trash")
