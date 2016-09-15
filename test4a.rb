@@ -251,3 +251,51 @@ p to_roman 58
 
 # p to_arabic "MCMLXXXIII"
 # p to_arabic "IV"
+
+
+<<-javascriptscope
+
+  var text = 'outside';
+  function logIt(){
+    console.log(text);
+    var text = 'inside';
+  };
+  logIt();
+
+  = console will log undefined
+
+  1. Functions create new scopes in javascript
+  2. blocks like if statements and for loops do not create a new scope
+  3. a variable declaration simply tells the interpreter that a variable
+  exists. By default it initializes the variable to undefined. 
+  4. A variable assignment assigns a value to the variable
+  5. variable declarations are 'hoisted' to the top of the current scope.
+    Variable assignments, however are not
+
+  The declaration (but not the assignment) of text gets hoisted to the top of logIt(). So our code gets interpreted as though it were:
+
+  var text = 'outside';
+  function logIt(){
+    var text;
+    console.log(text);
+    text = 'inside';
+  };
+  logIt();
+
+  So we have a new variable text inside of logIt() that is initialized to undefined, which is what it holds when we hit our log statement. 
+
+javascriptscope
+
+<<-whatswrongwiththisjavascript
+
+  a closure is a function that accesses a variable "outside" itself. 
+  when a funciton accesses a variable outside its scope, it accesses that variable, not a frozen copy. 
+    - accessing a nonexistant index in an array returns undefined in javascript
+  Arguments passed by value
+    - one important property of primitives in JS is that when they are passed as arguments ot a function, they are copied('passed by value')
+  Arguments passed by reference
+    - when a function takes an object, it actually takes a reference to that very object
+
+
+whatswrongwiththisjavascript
+
