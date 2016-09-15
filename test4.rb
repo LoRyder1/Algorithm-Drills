@@ -257,3 +257,28 @@ end
 
 # p to_arabic "MCMLXXXIII"
 # p to_arabic "IV"
+
+
+<<-NOTES
+
+Vagrant vs Docker
+- Software stacks are entirely independent form the machine you are working on
+- software stacks can be shared with other people and be reproduced automatically with ease
+- virtual machines can be started and stopped as required
+- hosting environment become ephemeral and can be thrown away when no longer useful
+- it saves a lot of time.
+
+Vagrant utilises a much simpler architecture than Docker. It uses virtual machines to run environments independent of the host machine. This is done using what is called "virtualization" software such as VirtualBox or VMware. Each environment has its own virtual machine and is configured by use of a VagrantFile. The Vagrantfile tells Vagrant how to set up the virtual machine and what scripts need to be run in order to provision the environment. 
+The downside to this approach is that each virtual machiens includes not only your application and all of its libraries but the entire guest operating system as well, which may well be tens of GBs in size.
+Docker, however, uses "containers" which include your application and all of its dependencies, but share the kernel (operating system) with other containers. Containers run as isolated processes on the host operating system but are not tied to any specific infrastructure (they can run on any computer). 
+
+What is the upshot of all of this?
+- Vagrant is easier to understand and is easier to get up and running but can be very resource intensive (in temrs of RAM and space).
+- Docker's architecture is harder to understand and can be harder to get up and running but is much faster, uses much less CPU and RAM and potentially uses much less space than Vagrant VM's
+
+So which is Better? 
+
+  As with all things of this nature there is no "right" and "wrong", "better" or "worse". It depends entirely on how you want to use it and what you feel comfortable with. 
+
+
+NOTES
