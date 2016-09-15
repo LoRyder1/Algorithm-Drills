@@ -280,5 +280,4 @@ So which is Better?
 
   As with all things of this nature there is no "right" and "wrong", "better" or "worse". It depends entirely on how you want to use it and what you feel comfortable with. 
 
-
 NOTES
