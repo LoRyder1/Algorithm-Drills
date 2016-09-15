@@ -195,16 +195,17 @@ end
 def pig_latin word
   vowels = %w(a e i o u)
   if vowels.include? word[0]
-    word + 'yay'
+    return word + 'yay'
   else
-    vw = nil
+    vindex = nil
     word.chars.each_with_index do |x,xi|
-      vw = xi and break if vowels.include? x
+      vindex = xi and break if vowels.include? x
     end
-    pre = word[0...vw]
-    suf = word[vw..-1]
-    suf + pre + 'ay'
+    pre = word[0...vindex]
+    suf = word[vindex..-1]
+    return suf + pre + 'ay'
   end
+  
 end
 
 p pig_latin 'acre'  # acreyay
