@@ -241,16 +241,25 @@ end
 
 
 
-p to_roman 1983
-p to_roman 4
-p to_roman 58
+# p to_roman 1983
+# p to_roman 4
+# p to_roman 58
 
 # Feature 2 - Converting Roman to Arabic
 
+def to_arabic num
+  arabic = 0
+  ROMAN_NUMBERS.each do |key,value|
+    while num.start_with? value
+      arabic += key
+      num = num.slice(value.size, num.size)
+    end
+  end
+  arabic
+end
 
-
-# p to_arabic "MCMLXXXIII"
-# p to_arabic "IV"
+p to_arabic "MCMLXXXIII"
+p to_arabic "IV"
 
 
 <<-javascriptscope
