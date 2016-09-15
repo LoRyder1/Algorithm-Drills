@@ -205,12 +205,11 @@ def pig_latin word
     suf = word[vindex..-1]
     return suf + pre + 'ay'
   end
-  
 end
 
-p pig_latin 'acre'  # acreyay
-p pig_latin 'pig' # 'igpay'
-p pig_latin 'trash' # 'ashtray'
+# p pig_latin 'acre'  # acreyay
+# p pig_latin 'pig' # 'igpay'
+# p pig_latin 'trash' # 'ashtray'
 
 # p convert_sentence("acre pig trash")
 
@@ -231,11 +230,20 @@ ROMAN_NUMBERS = { 1000 => "M",
                   4 => "IV",
                   1 => "I" }
 
+def to_roman num
+  roman = ''
+  ROMAN_NUMBERS.each do |key,value|
+    roman += value*(num/key)
+    num %= key
+  end
+  roman 
+end
 
 
-# p to_roman 1983
-# p to_roman 4
-# p to_roman 58
+
+p to_roman 1983
+p to_roman 4
+p to_roman 58
 
 # Feature 2 - Converting Roman to Arabic
 
