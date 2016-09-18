@@ -212,8 +212,28 @@ end
  # ==== encrypt string by rotating every letter in string by a fixed
 # number, K, making it unreadable by his enemies. Given a string S, and a number, K, encrypt S and print the resulting string. 
 
-def caesar_cipher string
-
+def caesar_cipher string, k
+  alpha = ('a'..'z').to_a
+  alpha_count = alpha.count
+  new_string = ''
+  string.chars.each do |letter|
+    if alpha.include? letter.downcase
+      upcase = false
+      y = letter.downcase
+      new_ind = alpha.index(y) + k
+      new_ind = new_ind - alpha_count*(new_ind/alpha_count)
+      encryp = alpha[new_ind]
+      upcase = true if letter == letter.upcase
+      upcase ? new_string << encryp.upcase : new_string << encryp
+    else
+      new_string << letter
+    end
+  end
+  new_string
 end
 
-p caesar_cipher 'middle-Outz'
+# p caesar_cipher 'middle-Outz', 2
+# p caesar_cipher 'Hello_World!', 2
+# p caesar_cipher '159357lcfd', 98  #  159357fwzx
+# p caesar_cipher 'lcfd', 98  #  fwzx
+
