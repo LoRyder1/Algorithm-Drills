@@ -48,11 +48,21 @@ end
 # You are given the cost of these flavors. The cost of the iithth flavor is denoted by ccii. You have to display the indices of the two flavors whose sum is MM.
 # =============================================================================
 
+# def ice_cream_parlor num, arr
+#   for i in (0...arr.size)
+#     for j in (i+1...arr.size)
+#       indices = [i,j] and break if arr[i] + arr[j] == num
+#     end
+#   end
+#   indices
+# end
+
 def ice_cream_parlor num, arr
-  for i in (0...arr.size)
-    for j in (i+1...arr.size)
-      indices = [i,j] and break if arr[i] + arr[j] == num
-    end
+  indices, the_hash = [], Hash.new
+  arr.each_with_index do |x,xi|
+    complement = num - x
+    lookup = the_hash[complement]
+    lookup.nil? ? the_hash[x] = xi : indices << [lookup, xi]
   end
   indices
 end

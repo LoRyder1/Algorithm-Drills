@@ -1,6 +1,24 @@
 # 28. Parenthesis Matching
 # Find the closing parenthesis
 
+# def get_closing_paren sent, index
+#   open = 0
+#   sent.chars.each_with_index do |x,xi|
+#     if xi > index
+#       if x == '('
+#         open +=1
+#       elsif x == ')'
+#         if open.zero? 
+#           return xi
+#         else
+#           open -=1
+#         end
+#       end
+#     end
+#   end
+#   raise Exception, "No closing parenthesis :("
+# end
+
 def get_closing_paren sentence, opening_paren_index
   open_nested_parens = 0
 
@@ -62,6 +80,30 @@ def is_valid code
     end
   end
   return openers_stack == []
+end
+
+def is_valid code
+  hash = { '(' => ')', '{' => '}', '[' => ']' }
+
+  openers, closers = Set.new(hash.keys), Set.new(hash.values)
+
+  openers_stack = []
+
+  code.chars.each_with_index do |x,xi|
+    if openers.include? x
+      openers_stack.push x
+    elsif closers.include? x
+      if openers_stack.empty? 
+        return false
+      else
+        last_unclosed_opener = openers_stack.pop
+        if hash[last_unclosed_opener] != x
+          return false
+        end
+      end
+    end
+  end
+  return openers_stack.empty?
 end
 
 # p is_valid("(ahfds)")
