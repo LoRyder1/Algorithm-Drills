@@ -334,3 +334,68 @@ dice_grid2 = [["a", "b", "c"],
 
 boggle_board = BoggleBoard.new(dice_grid)
 boggle_board2 = BoggleBoard.new(dice_grid2)
+
+
+# i.  Given an array of integers between 1 and 1,000,000. One integer is in the array twice. 
+
+# Find the duplicate.
+
+# ii.  Find the first non-repeating character in a string:("DEFD" -> E )
+
+# iii.  A standard deck of 52 cards is represented in an array. Each card is represented as an 
+
+# integer. Write a method to shuffle the cards.
+
+def duplicate(array)
+  if array.uniq.length == array.length
+    return "array doesn't have any duplicates homey"
+  else
+    arycpy = array
+    while arycpy != nil do 
+      y = arycpy.pop
+      if arycpy.include? y
+        return y
+      end
+    end
+  end
+end
+
+# p duplicate([1,2,3,4,5,5,6]) == 5
+# p duplicate([1,2,3,4,5,6]) == "array doesn't have any duplicates homey"
+
+
+def nonrptchar(string)
+  strcpy = string.reverse.chars
+  while strcpy != nil do 
+    y = strcpy.pop
+    if strcpy.include? y
+      strcpy.delete(y)
+    else
+      return y
+    end
+  end
+end
+
+# p nonrptchar("DEFD") == "E"
+# p nonrptchar("hellohe") == "o"
+# p nonrptchar("hello") == "h"
+
+def shuffle(cards)
+  shuffled = []
+
+  while (cards.any?) do 
+    shuffled << cards.delete(cards.sample)
+  end
+
+  return shuffled
+end
+
+# p shuffle((1..52).to_a) != shuffle((1..52).to_a)
+
+
+
+
+
+
+
+

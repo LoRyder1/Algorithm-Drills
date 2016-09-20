@@ -1,5 +1,9 @@
 # ============ NUMS TO COMMAS   ============
 
+def separat_with_commas
+  
+end
+
 
 
 # p separate_with_commas 1000
