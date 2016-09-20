@@ -197,10 +197,8 @@ end
 
 # ==== Given a group of sentences, give count of words of largest sent. ===
 
-def largest_sent paragraph
-  sent_length = []
-  paragraph.split(/\?|\.|\!/).map{|x| x.split(' ')}.each{|x| sent_length << x.size}
-  sent_length.max
+def largest_sent string
+  string.split(/\?|\.|\!/).map(&:split).map(&:size).max
 end
 
 # p largest_sent "We test coders. Give us a try?"
@@ -214,17 +212,19 @@ end
 
 def caesar_cipher string, k
   alpha = ('a'..'z').to_a
-  alpha_count = alpha.count
+  a_count = alpha.count
   new_string = ''
   string.chars.each do |letter|
-    if alpha.include? letter.downcase
-      upcase = false
-      y = letter.downcase
-      new_ind = alpha.index(y) + k
-      new_ind = new_ind - alpha_count*(new_ind/alpha_count)
+    upcase = false
+    upcase = true if letter == letter.upcase
+    letter = letter.downcase
+    if alpha.include? letter
+      new_ind = alpha.index(letter) + k
+      loop_adj = a_count*(new_ind/a_count)
+      new_ind -= loop_adj
       encryp = alpha[new_ind]
-      upcase = true if letter == letter.upcase
-      upcase ? new_string << encryp.upcase : new_string << encryp
+      encryp.upcase! if upcase
+      new_string << encryp
     else
       new_string << letter
     end

@@ -46,7 +46,7 @@ end
 # Sunny and Johnny together have MM dollars they want to spend on ice cream. The parlor offers NN flavors, and they want to choose two flavors so that they end up spending the whole amount.
 
 # You are given the cost of these flavors. The cost of the iithth flavor is denoted by ccii. You have to display the indices of the two flavors whose sum is MM.
-# =================================================================================
+# =============================================================================
 
 def ice_cream_parlor num, arr
   for i in (0...arr.size)
@@ -54,11 +54,11 @@ def ice_cream_parlor num, arr
       indices = [i,j] and break if arr[i] + arr[j] == num
     end
   end
-  p indices
+  indices
 end
 
-# ice_cream_parlor 4, [1,4,5,3,2]
-# ice_cream_parlor 4, [2,2,4,3]
+# p ice_cream_parlor 4, [1,4,5,3,2]
+# p ice_cream_parlor 4, [2,2,4,3]
 
 # Time complexity O(N) using Kadane's algorithm 
 
@@ -66,23 +66,23 @@ end
 
 # Kadane's algorithm consists of a scan through the array values, computing at each position the maximum (positive sum) subarray ending at that position. This subarray is either empty (in which case its sum is zero) or consists of one more element than the maximum subarray ending at the previous position. The algorithm only needs to keep track of the ending position because the implied starting position is just after the last position the sum went negative, and you can always get a higher sum by dropping any negative-sum prefix. 
 # Kadane's Algo - look at each index and figure out max sum subarray ending at this index. 
-# =================================================================================
+# =============================================================================
 
 def the_max_subarray arr
   max_so_far = max_cur = arr.shift
   arr.each do |x|
-    max_cur = [x, max_cur + x].max
+    max_cur = [x,max_cur+x].max
     max_so_far = [max_cur, max_so_far].max
   end
-  puts max_so_far
+  max_so_far
 end
 
-# the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
-# the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
-# the_max_subarray [1] # 1
-# the_max_subarray [1,2,3,4] # 10
-# the_max_subarray [2,-1,2,3,4,-5] # 10
-# the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
+# p the_max_subarray [-4,5,5,-7,4,-1,8,-6]  # 14
+# p the_max_subarray [-1,-2,-3,-4,-5, -6]  # -1
+# p the_max_subarray [1] # 1
+# p the_max_subarray [1,2,3,4] # 10
+# p the_max_subarray [2,-1,2,3,4,-5] # 10
+# p the_max_subarray [31, -41, 59, 26, -53, 58, 97, -93, -23, 84] # 187 
 
 # Maximum Sum Subarray 
 # - Brute Force - Time Complexity O(N^2)
@@ -117,6 +117,6 @@ grid = [[-3,-2,-1,1],
         [-2,2,3,4],
         [4,5,7,8]]
 
-count_neg_num grid
+# count_neg_num grid  #4
 # 7 vs 12 Naive solution O(N*M) vs Optimal solution O(N+M)
 
