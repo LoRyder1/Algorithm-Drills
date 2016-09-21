@@ -154,4 +154,12 @@ To create a new ShortLink, we'll send a POST request there. Our POST request wil
 
 Two main types of databases these days: Relational databases (RDBMs) like MySQL and Postgres and NoSQL- style databaes like BigTable and Cassandra. 
 
-Relational databses are great for systems where you expect to make lots of complex queries involving joins and such - in other words, they're good if you're planning to look at the relationships between things a lot. NoSQL databases don't handle these things quite as well
+Relational databses are great for systems where you expect to make lots of complex queries involving joins and such - in other words, they're good if you're planning to look at the relationships between things a lot. NoSQL databases don't handle these things quite as well, but in exchange they're faster for writes and simple key-value reads. 
+
+For our app, it seems like relational queries aren't likely to be a big part of our app's functionality, even if we added a few of the obvious next features we might want. So let's go with NoSQL for this. 
+
+Configure databae to use more space for its cache. If reads are still slow we could add a caching layer, like memcached. It adds complexity because we now have two sources of truth, and we need to be careful to keep them in sync. For example, if we let users edit their links, we need to push those edits to both the database adn the cache. 
+  Adding a caching layer:
+    1. the eviction strategy. If the cache is full, what do we remove to make space? The most common answer is an LRU (least recently used) strategy. 
+    2. sharding strategy. Sharding our cache lets us store more stuff in memory, because we can use more machines. But how do we store more stuff in memory, because we can use more machines. But how do we decide which things go on which shard? THe common answer is a "hash and mod strategy" - hash the key, mod the result by the number of shards, and you get a shard number to send your request to. But then how do you add or remove a shard without causing an unmanageable spike in cache misses? 
+
