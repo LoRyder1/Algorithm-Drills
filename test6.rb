@@ -1,43 +1,24 @@
 # 28. Parenthesis Matching
 # Find the closing parenthesis
 
-# def get_closing_paren sent, index
-#   open = 0
-#   sent.chars.each_with_index do |x,xi|
-#     if xi > index
-#       if x == '('
-#         open +=1
-#       elsif x == ')'
-#         if open.zero? 
-#           return xi
-#         else
-#           open -=1
-#         end
-#       end
-#     end
-#   end
-#   raise Exception, "No closing parenthesis :("
-# end
-
-def get_closing_paren sentence, opening_paren_index
-  open_nested_parens = 0
-
-  (opening_paren_index + 1).upto(sentence.length - 1) do |position|
-    char = sentence[position]
-
-    if char == '('
-      open_nested_parens += 1
-    elsif char == ')'
-      if open_nested_parens == 0
-        return position
-      else
-        open_nested_parens -= 1
+def get_closing_paren sent, index
+  open = 0
+  sent.chars.each_with_index do |x,xi|
+    if xi > index
+      if x == '('
+        open +=1
+      elsif x == ')'
+        if open.zero? 
+          return xi
+        else
+          open -=1
+        end
       end
     end
   end
-
   raise Exception, "No closing parenthesis :("
 end
+
 
 # Complexity: O(n) time, where n is the number of chars in the string. O(1) space
 
@@ -47,40 +28,6 @@ end
 # A greedy algorithm iterates through the problem space taking the optimal soluiton "so far," until it reaches the end. The greedy approach is only optimal if the problem has "optimal substructure," which means stiching together optimal solutions to subproblems yields an optimal solution. 
 
 require 'set'
-
-def is_valid code
-  openers_to_closers_hash = {
-    '(' => ')',
-    '{' => '}',
-    '[' => ']'
-  }
-
-  openers = Set.new(openers_to_closers_hash.keys)
-  closers = Set.new(openers_to_closers_hash.values)
-
-  openers_stack = []
-
-  for i in 0...code.length
-    char = code[i]
-    if openers.include? char
-      openers_stack.push(char)
-    elsif closers.include? char
-      if openers_stack.empty?
-        return false
-      else
-        last_unclosed_opener = openers_stack.pop
-
-        # if this closer doesn't correspond to the most recently
-        # seen unclosed opener, short-circuit, returning false
-        if openers_to_closers_hash[last_unclosed_opener] != char
-          return false
-        end
-
-      end
-    end
-  end
-  return openers_stack == []
-end
 
 def is_valid code
   hash = { '(' => ')', '{' => '}', '[' => ']' }
@@ -114,63 +61,36 @@ end
 # 1. parsing 
 # 2. tree or graph traversal
 
-# 30. Permutation Palindrome
-# Write an efficient function that checks whether any permutation of an input is a palindrome(the same forwards as backwards)
-
-# Using a hash is the most common way to get from a brute force approach to something more clever.
-# Integer overflow: an integer that does not fit into the integer type
-
-require 'set'
-
-def has_palindrome_permutation the_string
-  # track the characters we've seen an odd number of times
-  unpaired_characters = Set.new
-
-  (0...the_string.length).each do |i|
-    char = the_string[i]
-
-    if unpaired_characters.include? char
-      unpaired_characters.delete(char)
-    else
-      unpaired_characters.add(char)
-    end
-  end
-
-  # the string has a palindrome permutation if it
-  # has one or zero characters without a pair
-  return unpaired_characters.length <= 1
-end
-
-# Complexity: O(n) time, since, we're making one iteration through the n characters in the string
+# write a function to reverse a string in-place
+# An in-place algorithm operates directly on its input and changes it, instead of creating and returning and new object. This is sometimes called destructive, since the original input is destroyed when it's edited to create the new output. 
 
 def reverse string
-  left_pointer = 0
-  right_pointer = string.length - 1
-
-  while left_pointer < right_pointer
-
+  left, right = 0, string.length - 1
+  while left < right
     # swap characters
-    string[left_pointer], string[right_pointer] =
-      string[right_pointer], string[left_pointer]
-
+    string[left], string[right] = string[right], string[left]
     # move towards middle
-    left_pointer += 1
-    right_pointer -= 1
+    left += 1
+    right -= 1
   end
-
   return string
 end
 
-p reverse "hello"
+# p reverse "hello"
 
 # Complexity: O(n) time and O(1) space
 
 # 27. Reverse Words
 
-message = "find you will pain only go you recordings security the into if"
 
-# reverse_words message
-# returns 'if into the security recordings you go only pain will you find'
+def reverse_characters message, a, z
+  while a < z
+    message[a], message[z] = message[z], message[a]
+    a += 1
+    z -= 1
+  end
+  return message
+end
 
 def reverse_words message
 
@@ -187,21 +107,24 @@ def reverse_words message
   current_word_start_index = 0
 
   for i in 0..message.length
-
-    # found the end of the current word!
     if (message[i] == ' ') || (i == message.length)
-
       reverse_characters(message, current_word_start_index, i-1)
-
-      # if we haven't exhausted the string our 
-      # next word's start is one character ahead
       current_word_start_index = i + 1
     end
   end
 
+  # message.split(' ').each do |x|
+  #   reverse_characters(x, 0, x.length-1)
+  # end.join(' ')
+
   return message
 end
 
+message = "find you will pain only go you recordings security the into if"
+
+# returns 'if into the security recordings you go only pain will you find'
+
+p reverse_words message
 
 # 13. Find Rotation Point
 
@@ -222,6 +145,7 @@ words = [
 # words = [
 #   'k', 'v', 'a', 'b', 'c', 'd', 'e', 'g', 'i'
 # ]
+# Binary search - common algorithm that takes advantage of the fact that a set is sorted to find an item efficiently. 
 
 def find_rotation_point words
   first_word = words[0]
@@ -522,4 +446,157 @@ def find_repeat_brute_force numbers
   raise Exception, 'no duplicate!'
 end
 
-# O(1) space, and O(n^2) time
+
+
+
+# ================================================
+
+
+
+
+
+
+# 14. Inflight-entertainment
+
+# What data structure gives us convenient constant-time lookups? - A set
+
+require 'set'
+
+# Brute Force O(n^2)
+def two_movies arr, total
+  arr.each do |first|
+    arr.each do |second|
+      return true if first + second == total
+    end
+  end
+  return false
+end
+
+def two_movies arr, total
+  seen = Set.new
+  arr.each do |first|
+    match = total - first
+    return true if seen.include? match
+    seen.add(first)
+  end
+  return false
+end
+
+p two_movies [10,20,30], 40
+p two_movies [10,20,10,20,30], 30
+
+# Complexity O(n) time and O(n) space
+
+# Write an efficient function that takes stock_prices_yesterday and returns the best profit I could have made from 1 purchase and 1 sale of 1 Apple stock yesterday.
+
+# A greedy algorithm iterates through the problem space taking the optimal solution "so far", until it reaches the end.
+
+# The greedy approach is only optimal if the problem has "optimal substructures," which means stitching together optimal solutions to subproblems yields an optimal solution
+
+# Brute Force
+
+# 1. APPLE STOCKS
+
+def get_max_profit stock_prices_yesterday
+  max_profit = 0
+  stock_prices_yesterday.each_with_index do |earlier_price, earlier_time|
+    for later_price in stock_prices_yesterday[earlier_time+1..-1]
+      potential_profit = later_price - earlier_price
+      max_profit = [max_profit, potential_profit].max
+    end
+  end
+  return max_profit
+end
+
+# O(n^2)
+
+def get_max_profit stock_prices_yesterday
+  if stock_prices_yesterday.length < 2
+    raise IndexError, 'Getting a profit requires at least two prices'
+  end
+
+  max_profit = stock_prices_yesterday[1] - stock_prices_yesterday[0]
+  min_price = stock_prices_yesterday.shift
+
+  stock_prices_yesterday.each do |current_price|
+    potential_profit = current_price - min_price
+    max_profit = [potential_profit, max_profit].max
+    min_price = [current_price, min_price].min
+  end
+
+  return max_profit
+end
+
+# stock_prices_yesterday = [10, 7, 5, 8, 11, 9]
+
+# p get_max_profit(stock_prices_yesterday)
+
+# O(n) time and O(1) space. Loop once
+# returns 6 (buying for $5 and selling for $11)
+
+# 4. MERGE MEETING TIMES
+
+def merge_ranges meetings
+  sorted_meetings = meetings.sort
+  merged_meetings = [sorted_meetings.shift]
+
+  sorted_meetings.each do |current_meeting_start, current_meeting_end|
+
+    last_merged_meeting_start, last_merged_meeting_end = merged_meetings[-1]
+
+    if current_meeting_start <= last_merged_meeting_end
+      merged_meetings[-1] = [last_merged_meeting_start, [last_merged_meeting_end, current_meeting_end].max]
+    else
+      merged_meetings.push([current_meeting_start, current_meeting_end])
+    end
+  end
+
+  return merged_meetings
+end
+
+range = [[0, 1],[3, 5],[4, 8],[10, 12],[9, 10]]  # [[0, 1], [3, 8], [9, 12]]
+# p merge_ranges range
+
+# Runtime of O(nlgn) if unordered space cost: O(n)
+
+# memoize - memoization ensures that a function doesn't run for the same inputs more than once by keeping a record of the results for given inputs (usually in a hash).
+# Memoization is a common strategy for dynamic programming problems, which are problems where the solution is composed of solutions to the same problem with smaller inputs. Another common strategy is going bottom-up
+
+# bottom-up is a way to avoid recursion, saving the memory cost that recursion incurs when it builds up the call stack
+
+require 'set'
+
+def find_repeat(numbers)
+  numbers_seen = Set.new
+  numbers.each do |number|
+    if numbers_seen.include? number
+      return number
+    else
+      numbers_seen.add(number)
+    end
+  end
+
+  # whoops -- no duplicate
+  raise Exception, 'no duplicate!'
+end
+
+# O(n) time and O(n) space
+
+def find_repeat_brute_force numbers
+  (1...numbers.length).each do |needle|
+    has_been_seen = false
+    numbers.each do |number|
+      if number == needle
+        if has_been_seen
+          return number
+        else
+          has_been_seen = true
+        end
+      end
+    end
+  end
+  
+  # whoops--no duplicate
+  raise Exception, 'no duplicate!'
+end
+

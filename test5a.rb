@@ -14,7 +14,6 @@ def median arr
   mid = arr.size/2
   even_sum = arr[mid] + arr[mid-1]
   even_mid = even_sum.to_f/2 
-
   arr.size.odd? ? arr[mid] : even_mid
 end
 

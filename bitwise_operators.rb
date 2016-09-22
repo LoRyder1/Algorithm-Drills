@@ -12,6 +12,10 @@
 #   & 0110  (6)
 #   = 0100  (4)
 
+# 0011   3
+        # 0000
+# bits: 8,4,2,1
+
 # ======================================================================
 
 # The OR bitwise operation takes two sets of bits and for each pair of bits (the two bits at the same index in each set) returns 11 if either of the bits are 11. Otherwise, it returns 00.
@@ -79,3 +83,5 @@
 # = O(1) constant time
 # = O(n) linear time
 # = O(n^2) quadratic time
+
+

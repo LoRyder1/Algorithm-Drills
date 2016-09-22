@@ -91,21 +91,14 @@ def my_hash_modification_method hash, num
 end
 
 def my_array_sorting_method array
-  sorted = []
-  nums = [] 
-  words = []
+  sorted, nums, words = [], [], []
   array.each do |x|
-    if x.class == Fixnum
-      nums << x
-    else
-      words << x
-    end
+    x.class == Fixnum ? nums << x : words << x
   end
   nums.sort.concat(words.sort)
 end
 
 def my_hash_sorting_method hash, kind
-  # sorted = []
   if kind == 'age'
     hash.sort_by{|k,v| v }
   end
@@ -114,9 +107,7 @@ end
 def my_deletion_method array, letter
   array.each do |x|
     if x.class != Fixnum
-      if x.include? letter
-        array.delete(x)
-      end
+      array.delete(X) if x.include? letter
     end
   end
   array

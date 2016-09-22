@@ -77,17 +77,17 @@ p is_valid "(ahfds)"
 
 # p find2sum [1,2,3,4,5], 6
 
-# def pairs_given_sum num, arr
-#   the_hash, indices = Hash.new, []
-#   arr.each_with_index do |x,xi|
-#     complement = num - x
-#     lookup = the_hash[complement]
-#     lookup.nil? ? the_hash[x] = xi : indices << [lookup, xi]
-#     # puts the_hash
-#   end
-#   indices
-# end
+def pairs_given_sum num, arr
+  the_hash, indices = Hash.new, []
+  arr.each_with_index do |x,xi|
+    complement = num - x
+    lookup = the_hash[complement]
+    lookup.nil? ? the_hash[x] = xi : indices << [lookup, xi]
+    # puts the_hash
+  end
+  indices
+end
 
-# p pairs_given_sum 100, [1,50,2,98,0,100,50,99,23,95] #[[2, 3], [4, 5], [1, 6], [0, 7]]
+p pairs_given_sum 100, [1,50,2,98,0,100,50,99,23,95] #[[2, 3], [4, 5], [1, 6], [0, 7]]
 
 
