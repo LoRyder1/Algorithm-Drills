@@ -71,25 +71,20 @@ def the_max_subarray arr
 end
 
 
+# p the_max_subarray [3,1,-2,1]
+
 def maxLength a, b
   arr = []
   for i in 1..(a.length) do
     arr += a.combination(i).to_a
-    p arr
   end
-  arr.reject! do |x|
-    x.reduce(:+) > b
-  end.last.size
+  arr.reject!{|x| x.reduce(:+) > b}.last.size
 end
 
 
-# [1,2], [2,3], [1,2,3]
+# p maxLength [1,2,3,4,5,6,7]
 
-p maxLength [1,2,3], 3
-p maxLength [3,1,2,1], 4
-
-
-
-
+p maxLength [1,2,3], 3 # = 2
+p maxLength [3,1,2,1], 4 # = 3
 
 
