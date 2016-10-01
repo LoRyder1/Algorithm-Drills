@@ -16,31 +16,35 @@ require 'uri'
 require 'net/http'
 require 'net/https'
 require 'json'
+require 'pry'
+require 'open-uri'
+# require 'httparty'
 
-class Client
+# class Request
+#   attr_reader :url, :uri_host, :uri_path
+#   def initialize url
+#     @url = url
+#     @uri_host = uri_host
+#     @uri_path = uri_path
+#   end
 
-  def get(url)
-    # create the HTTP GET request
-    uri = URI.parse(url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    request = Net::HTTP::Get.new(URI(url))
+#   def get
+#     # create the HTTP GET request
+#     uri = URI.parse(@url)
+#     @uri_host = uri.host
+#     @uri_path = uri.path
 
-    # p http
-    # connect to the server and send the request
-    response = http.request(request)
-    response.body
+#     http = Net::HTTP.new(uri.host, uri.port)
+#     http.use_ssl = true
+#     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+#     request = Net::HTTP::Get.new(URI(url))
 
-    response.body
-  end
+#     # connect to the server and send the request
+#     response = http.request(request)
+#     response
+#   end
 
-end
-
-web = Client.new
-
-p web.get("https://lovinderpnag.com/word_freq.txt")
-
+# end
 
 
 # start with converting a text file to pig latin
@@ -65,20 +69,17 @@ def pig_latin word
   end
 end
 
-
-
-
-class Document
-  attr_reader :words
-  def initialize doc
-    @doc = File.open(doc)
+class NetFile
+  attr_reader :words, :address, :converted
+  def initialize address
+    @address = address
     @parsed = nil
     @words = []
     @converted = []
   end
 
   def parse
-    @parsed = @doc.map(&:split).flatten
+    @parsed = open(address).map(&:split).flatten
   end
 
   def filter
@@ -100,9 +101,39 @@ class Document
 
 end
 
+# http proxy server that translate pages its receives
+# netfile = NetFile.new('http://lovinderpnag.com/word_freq.txt')
+# netfile.parse
+# netfile.filter
+# netfile.words
+# netfile.convert_to_pig_latin
+# p netfile.converted.join(' ')
 
-# doc = Document.new("testing.txt")
-doc = Document.new("word_freq.txt")
-doc.parse
-doc.filter
-p doc.convert_to_pig_latin
+
+
+require 'webrick'
+require 'webrick/httpproxy'
+
+# handler = proc do |req, res|
+#   if res['content-type'].include? 'text/plain' then
+#     res.body << "\nThis content was proxied!\n"
+#   end
+#   p res.body
+# end
+
+# proxy = WEBrick::HTTPProxyServer.new Port: 8000, ProxyContentHandler: handler
+proxy = WEBrick::HTTPProxyServer.new Port: 8000
+
+
+proxy.mount_proc '/' do |req, res|
+  x = 'robots.txt?host=nytimes.com'
+  res.body = 'Hello, world!'
+end
+
+
+
+
+trap 'INT'  do proxy.shutdown end
+trap 'TERM' do proxy.shutdown end
+
+proxy.start
