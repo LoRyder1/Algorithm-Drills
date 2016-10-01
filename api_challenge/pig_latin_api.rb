@@ -2,7 +2,7 @@
 
 # Write an HTTP proxy server that translates all the pages it proxies into Pig Latin! This server should only accept get requests, and should return a version of each page requested where all the English has been converted into Pig Latin. (This involves moving all the consonants at the start of the string to the end and adding "ay" to it.)
 
-# The host to which the request should be proxied should should be specified in a query param. For example, if your proxy is running on localhost, port 8080, a request through the proxy for
+# The host to which the request should be proxied should be specified in a query param. For example, if your proxy is running on localhost, port 8080, a request through the proxy for
 
 # http://www.nytimes.com/robots.txt
 
@@ -109,26 +109,47 @@ end
 # netfile.convert_to_pig_latin
 # p netfile.converted.join(' ')
 
-
+# http://localhost:8080/robots.txt?host=www.nytimes.com
 
 require 'webrick'
 require 'webrick/httpproxy'
+require 'cgi'
 
 # handler = proc do |req, res|
 #   if res['content-type'].include? 'text/plain' then
 #     res.body << "\nThis content was proxied!\n"
 #   end
-#   p res.body
+#   @content = res.body
+#   # uri = req.request_uri
+
+#   # p uri.host
+#   # p uri.path
+
+#   # p res.body
 # end
 
-# proxy = WEBrick::HTTPProxyServer.new Port: 8000, ProxyContentHandler: handler
-proxy = WEBrick::HTTPProxyServer.new Port: 8000
+# proxy = WEBrick::HTTPProxyServer.new Port: 8080, ProxyContentHandler: handler
+proxy = WEBrick::HTTPProxyServer.new Port: 8080
+# proxy = WEBrick::HTTPProxyServer.new Port: 8080
+
+# type in http://localhost:8080/robots.txt?host=www.nytimes.com
+# Do http request below
 
 
 proxy.mount_proc '/' do |req, res|
-  x = 'robots.txt?host=nytimes.com'
-  res.body = 'Hello, world!'
+  uri = req.request_uri
+  params = CGI.parse(uri.query)
+
+
+  res.body = "*** #{uri} *** #{uri.path}*** #{params}*****"
+
 end
+
+# uri = URI.parse(req.unparsed_uri)
+# params = CGI.parse(uri.query)
+# site = req.path_info
+
+# site[0] = ""
 
 
 
