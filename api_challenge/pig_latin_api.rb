@@ -70,16 +70,17 @@ def pig_latin word
 end
 
 class NetFile
-  attr_reader :words, :address, :converted
-  def initialize address
-    @address = address
+  attr_reader :words, :uri, :converted
+  def initialize uri
+    @uri = uri
     @parsed = nil
     @words = []
     @converted = []
   end
 
   def parse
-    @parsed = open(address).map(&:split).flatten
+    # @parsed = open(address).map(&:split).flatten
+    @parsed = @uri.read.split(' ').flatten
   end
 
   def filter
@@ -109,40 +110,44 @@ end
 # netfile.convert_to_pig_latin
 # p netfile.converted.join(' ')
 
-# http://localhost:8080/robots.txt?host=www.nytimes.com
-
 require 'webrick'
 require 'webrick/httpproxy'
 require 'cgi'
 
-# handler = proc do |req, res|
-#   if res['content-type'].include? 'text/plain' then
-#     res.body << "\nThis content was proxied!\n"
-#   end
-#   @content = res.body
-#   # uri = req.request_uri
-
-#   # p uri.host
-#   # p uri.path
-
-#   # p res.body
-# end
-
-# proxy = WEBrick::HTTPProxyServer.new Port: 8080, ProxyContentHandler: handler
 proxy = WEBrick::HTTPProxyServer.new Port: 8080
-# proxy = WEBrick::HTTPProxyServer.new Port: 8080
-
-# type in http://localhost:8080/robots.txt?host=www.nytimes.com
-# Do http request below
-
 
 proxy.mount_proc '/' do |req, res|
   uri = req.request_uri
+
+  # new_uri = URI.parse(uri)
+  # res.body = "#{req}"
+
+  if uri.path.nil?
+
+    new_uri = URI.parse(uri)
+    
+  else
+
+
+  
+  uri = req.request_uri
   params = CGI.parse(uri.query)
+  newuri = URI::HTTP.build({:host => params["host"][0], :path => uri.path})
+
+  p uri #URI object
+  p uri.query #host= lovinderpnag.com
+  p params
 
 
-  res.body = "*** #{uri} *** #{uri.path}*** #{params}*****"
-
+  if newuri.open.meta["content-type"] == "text/plain; charset=utf-8"
+    netfile = NetFile.new(newuri)
+    netfile.parse
+    netfile.filter
+    netfile.convert_to_pig_latin
+    res.body = netfile.converted.join(' ')
+  else
+    res.body = "#{newuri.open.meta}"
+  end
 end
 
 # uri = URI.parse(req.unparsed_uri)
@@ -151,10 +156,8 @@ end
 
 # site[0] = ""
 
-
-
-
 trap 'INT'  do proxy.shutdown end
 trap 'TERM' do proxy.shutdown end
 
 proxy.start
+
