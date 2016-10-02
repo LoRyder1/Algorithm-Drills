@@ -72,13 +72,13 @@ uri = "http://localhost:8080/host=techcrunch.com"
 
 
 # req = CGI.parse(uri)
-req = URI.parse(uri)
 # 
 # p req.methods
 # p req.request_uri
 # p req.path
 # p req.query
 
+req = URI.parse(uri)
 
 if req.query.nil?
   params = CGI.parse(req.path)

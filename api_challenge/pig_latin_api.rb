@@ -119,25 +119,13 @@ proxy = WEBrick::HTTPProxyServer.new Port: 8080
 proxy.mount_proc '/' do |req, res|
   uri = req.request_uri
 
-  # new_uri = URI.parse(uri)
-  # res.body = "#{req}"
-
-  if uri.path.nil?
-
-    new_uri = URI.parse(uri)
-    
+  if uri.query.nil?
+    params = CGI.parse(uri.path)
+    newuri = URI::HTTP.build({host: params["/host"][0]})
   else
-
-
-  
-  uri = req.request_uri
-  params = CGI.parse(uri.query)
-  newuri = URI::HTTP.build({:host => params["host"][0], :path => uri.path})
-
-  p uri #URI object
-  p uri.query #host= lovinderpnag.com
-  p params
-
+    params = CGI::parse(uri.query)
+    newuri = URI::HTTP.build({host: params["host"][0], path: uri.path})
+  end
 
   if newuri.open.meta["content-type"] == "text/plain; charset=utf-8"
     netfile = NetFile.new(newuri)
