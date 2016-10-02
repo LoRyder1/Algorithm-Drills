@@ -7,6 +7,7 @@ require 'net/https'
 require 'json'
 require 'pry'
 require 'open-uri'
+require 'nokogiri'
 
 
 
@@ -66,9 +67,27 @@ newuri = URI::HTTP.build({:host => 'lovinderpnag.com', :path => '/word_freq.txt'
 # p newuri.methods
 
 # p newuri.open.meta["content-type"] == "text/plain; charset=utf-8"
+# 
+# uri = "http://localhost:8080/host=techcrunch.com"
+uri = "http://localhost:8080/word_freq.txt?host=techcrunch.com"
 
-uri = "http://localhost:8080/host=techcrunch.com"
-# uri = "http://localhost:8080/word_freq.txt?host=techcrunch.com"
+# open("http://" + site + "/" + params["host"][0]) do |content|
+#   doc = Nokogiri::HTML(content)
+
+
+uri = "https://techcrunch.com"
+
+# open(uri) do |content|
+#   doc = Nokogiri::HTML(content)
+#   doc.traverse do |x|
+#     if x.text?
+#       x.content = "hello"
+#     end
+#   end
+#   res.body = doc.to_html
+# end
+
+
 
 
 # req = CGI.parse(uri)
@@ -83,9 +102,11 @@ req = URI.parse(uri)
 if req.query.nil?
   params = CGI.parse(req.path)
   new_uri = URI::HTTP.build({host: params["/host"][0]})
+  p new_uri
 else
   params = CGI::parse(req.query)
   new_uri = URI::HTTP.build({host: params["host"][0], path: req.path})
+  p new_uri
 end
 
 # p req.query

@@ -18,6 +18,7 @@ require 'net/https'
 require 'json'
 require 'pry'
 require 'open-uri'
+require 'nokogiri'
 # require 'httparty'
 
 # class Request
@@ -72,6 +73,7 @@ end
 class NetFile
   attr_reader :words, :uri, :converted
   def initialize uri
+    # @string = string
     @uri = uri
     @parsed = nil
     @words = []
@@ -102,13 +104,7 @@ class NetFile
 
 end
 
-# http proxy server that translate pages its receives
-# netfile = NetFile.new('http://lovinderpnag.com/word_freq.txt')
-# netfile.parse
-# netfile.filter
-# netfile.words
-# netfile.convert_to_pig_latin
-# p netfile.converted.join(' ')
+
 
 require 'webrick'
 require 'webrick/httpproxy'
@@ -121,7 +117,7 @@ proxy.mount_proc '/' do |req, res|
 
   if uri.query.nil?
     params = CGI.parse(uri.path)
-    newuri = URI::HTTP.build({host: params["/host"][0]})
+    newuri = URI::HTTPS.build({host: params["/host"][0]})
   else
     params = CGI::parse(uri.query)
     newuri = URI::HTTP.build({host: params["host"][0], path: uri.path})
@@ -134,15 +130,28 @@ proxy.mount_proc '/' do |req, res|
     netfile.convert_to_pig_latin
     res.body = netfile.converted.join(' ')
   else
-    res.body = "#{newuri.open.meta}"
+
+    newuri.open do |content|
+    doc = Nokogiri::HTML(content)
+    doc.traverse do |x|
+      if x.text?
+        contents = ''
+        x.content.scan(/(\w+)(\W+)/) do |alpha,nonalpha|
+          first_letter = alpha.slice!(0)
+          alpha += first_letter + "ay"
+          contents += alpha
+          p alpha + "non"+nonalpha
+          contents += nonalpha
+        end
+        x.content = contents
+      end
+    end
+    res.body = doc.to_html
+  end
+
   end
 end
 
-# uri = URI.parse(req.unparsed_uri)
-# params = CGI.parse(uri.query)
-# site = req.path_info
-
-# site[0] = ""
 
 trap 'INT'  do proxy.shutdown end
 trap 'TERM' do proxy.shutdown end
